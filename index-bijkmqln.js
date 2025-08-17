@@ -1,3 +1,43 @@
+
+/*! CDG inject header + responsive video */
+(function(){
+  function buildUrl(base){
+    if(!base) base='https://www.youtube.com/embed/dQw4w9WgXcQ';
+    var sep = base.indexOf('?') === -1 ? '?' : '&';
+    return base + sep + 'autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1';
+  }
+  function insert(){
+    try{
+      var root=document.body; if(!root) return;
+      var wrapper=document.createElement('section');
+      wrapper.className='cdg-wrapper';
+      var h1=document.createElement('h1');
+      h1.className='cdg-title';
+      h1.textContent='CARDÁPIO DIGITAL';
+      var video=document.createElement('div');
+      video.className='cdg-video';
+      var iframe=document.createElement('iframe');
+      var src=buildUrl(window.CDG_VIDEO_URL);
+      iframe.src=src;
+      iframe.title='YouTube video player';
+      iframe.setAttribute('frameborder','0');
+      iframe.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; web-share');
+      iframe.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+      iframe.setAttribute('allowfullscreen','');
+      iframe.setAttribute('tabindex','-1');
+      video.appendChild(iframe);
+      wrapper.appendChild(h1);
+      wrapper.appendChild(video);
+      root.insertBefore(wrapper, root.firstChild || null);
+    }catch(e){}
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', insert);
+  } else {
+    insert();
+  }
+})();
+
 (function(){const l=document.createElement("link").relList;if(l&&l.supports&&l.supports("modulepreload"))return;for(const c of document.querySelectorAll('link[rel="modulepreload"]'))o(c);new MutationObserver(c=>{for(const h of c)if(h.type==="childList")for(const f of h.addedNodes)f.tagName==="LINK"&&f.rel==="modulepreload"&&o(f)}).observe(document,{childList:!0,subtree:!0});function r(c){const h={};return c.integrity&&(h.integrity=c.integrity),c.referrerPolicy&&(h.referrerPolicy=c.referrerPolicy),c.crossOrigin==="use-credentials"?h.credentials="include":c.crossOrigin==="anonymous"?h.credentials="omit":h.credentials="same-origin",h}function o(c){if(c.ep)return;c.ep=!0;const h=r(c);fetch(c.href,h)}})();var Cu={exports:{}},vl={};/**
  * @license React
  * react-jsx-runtime.production.js
